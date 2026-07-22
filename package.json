@@ -10,6 +10,8 @@
     "start": "next start",
     "db:push": "drizzle-kit push",
     "db:seed": "tsx scripts/seed.ts",
+    "db:bootstrap": "node scripts/backend/bootstrap-db.mjs",
+    "start:prod": "node scripts/start-production.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

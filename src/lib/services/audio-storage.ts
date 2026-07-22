@@ -10,10 +10,13 @@ export async function storeAudioDataUrl(userId: string, dataUrl?: string) {
   }
 
   const [header, base64] = dataUrl.split(",");
-  if (!base64 || base64.length > 10_000_000) throw new Error("Audio invalido ou muito grande");
+  const maxUploadMb = Number(process.env.MAX_AUDIO_UPLOAD_MB ?? 10);
+  const maxBase64Length = maxUploadMb * 1024 * 1024 * 1.4;
+  if (!base64 || base64.length > maxBase64Length) throw new Error("Audio invalido ou muito grande");
 
   const extension = header.includes("webm") ? "webm" : header.includes("wav") ? "wav" : header.includes("mpeg") ? "mp3" : "ogg";
-  const dir = path.join(process.cwd(), "uploads", userId);
+  const uploadDir = process.env.UPLOAD_DIR ?? "uploads";
+  const dir = path.join(process.cwd(), uploadDir, userId);
   await mkdir(dir, { recursive: true });
   const filename = `${crypto.randomUUID()}.${extension}`;
   await writeFile(path.join(dir, filename), Buffer.from(base64, "base64"));

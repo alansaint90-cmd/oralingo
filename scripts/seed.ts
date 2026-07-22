@@ -1,0 +1,43 @@
+import { db } from "../src/lib/db";
+import { challenges } from "../src/lib/db/schema";
+
+const seedChallenges = [
+  ["Apresente-se com clareza", "Conte quem voce e, o que faz e algo importante sobre voce.", "Fale por ate 60 segundos com inicio, meio e fim.", "diagnostico", "Clareza", "iniciante", 0, 60],
+  ["Venda sua ideia", "Imagine que encontrou uma pessoa importante em um elevador.", "Explique sua ideia e desperte interesse para uma reuniao.", "daily", "Objetividade e Persuasao", "intermediario", 20, 60],
+  ["Explique sem jargao", "Transforme uma ideia complexa em algo simples.", "Use exemplos concretos e evite termos tecnicos.", "daily", "Clareza", "iniciante", 20, 60],
+  ["Reuniao objetiva", "Voce precisa abrir uma reuniao importante.", "Apresente objetivo, contexto e proximo passo.", "daily", "Objetividade", "iniciante", 20, 60],
+  ["Improviso com estrutura", "Receba um tema e organize rapidamente.", "Use tres blocos: ponto, exemplo e fechamento.", "daily", "Improviso", "intermediario", 30, 60],
+  ["Defenda uma mudanca", "Convença uma equipe a testar uma melhoria.", "Mostre problema, beneficio e convite a acao.", "daily", "Persuasao", "intermediario", 30, 60],
+  ["Conte uma conquista", "Relate uma vitoria profissional sem soar arrogante.", "Foque contexto, acao e aprendizado.", "daily", "Confianca", "iniciante", 20, 60],
+  ["Resposta em entrevista", "Responda por que voce e a pessoa certa.", "Seja especifico e conecte experiencia ao objetivo.", "daily", "Confianca", "intermediario", 30, 60],
+  ["Fechamento memoravel", "Finalize uma apresentacao curta.", "Retome a ideia central e diga o proximo passo.", "daily", "Organizacao", "intermediario", 20, 60],
+  ["Convite para acao", "Peça que alguem apoie um projeto.", "Explique por que importa agora.", "daily", "Persuasao", "iniciante", 20, 60],
+  ["Resumo executivo", "Resuma um projeto para uma liderança.", "Diga objetivo, status, risco e pedido.", "daily", "Objetividade", "avancado", 20, 60],
+  ["Video curto", "Grave uma abertura para conteudo.", "Prenda atencao nos primeiros 5 segundos.", "daily", "Clareza", "iniciante", 20, 60],
+  ["Ideia em debate", "Discorde com respeito.", "Reconheca o ponto oposto e apresente sua alternativa.", "daily", "Persuasao", "avancado", 30, 60],
+  ["Historia pessoal", "Conte uma historia que ensine algo.", "Inclua cena, conflito e aprendizado.", "daily", "Organizacao", "intermediario", 30, 90],
+  ["Pausa consciente", "Treine falar sem preencher silencios.", "Use pausas curtas no lugar de vicios de linguagem.", "daily", "Confianca", "iniciante", 20, 60],
+  ["Priorize uma mensagem", "Voce tem muitas ideias e pouco tempo.", "Escolha uma mensagem central e descarte o resto.", "daily", "Objetividade", "iniciante", 20, 60],
+  ["Apresente numeros", "Explique um resultado com dados.", "Diga o numero, o significado e a decisao sugerida.", "daily", "Clareza", "intermediario", 20, 60],
+  ["Pedido dificil", "Solicite prazo, ajuda ou recurso.", "Seja direto, respeitoso e especifico.", "daily", "Confianca", "intermediario", 20, 60],
+  ["Desafio carreira", "Voce tem 60 segundos para convencer alguem de que comunicar bem pode mudar uma carreira.", "Organize suas ideias e fale com energia.", "desafio_60", "Persuasao", "iniciante", 30, 60],
+  ["Desafio reuniao", "Voce tem 60 segundos para defender que reunioes precisam terminar com decisoes claras.", "Apresente problema, proposta e beneficio.", "desafio_60", "Objetividade", "intermediario", 30, 60]
+] as const;
+
+for (const item of seedChallenges) {
+  await db.insert(challenges).values({
+    title: item[0],
+    description: item[1],
+    instructions: item[2],
+    category: item[3],
+    primarySkill: item[4],
+    difficulty: item[5],
+    preparationTime: item[6],
+    speakingTime: item[7],
+    active: true,
+    modifiedBy: null
+  }).onConflictDoNothing();
+}
+
+console.log(`Seed concluido: ${seedChallenges.length} desafios.`);
+process.exit(0);

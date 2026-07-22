@@ -6,7 +6,7 @@ export const createSessionSchema = z.object({
 });
 
 export const submitAttemptSchema = z.object({
-  sessionId: z.string().uuid(),
+  sessionId: z.union([z.string().uuid(), z.literal("demo-session")]),
   attemptNumber: z.number().int().min(1).max(10),
   durationSeconds: z.number().int().min(5).max(600),
   transcript: z.string().trim().max(15000).optional().default(""),

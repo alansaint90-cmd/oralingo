@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { BookOpen, Flame, Mic, Star, TrendingUp, Zap } from "lucide-react";
+import { BrandName } from "@/components/ui/BrandName";
 
 export default function HomePage() {
   return (
     <main className="shell">
       <nav className="topbar landing-topbar">
-        <div className="brand">Oralingo</div>
+        <div className="brand"><BrandName /></div>
         <div className="row landing-actions">
           <Link className="button ghost" href="/login">Entrar</Link>
           <Link className="button" href="/cadastro">Cadastrar</Link>

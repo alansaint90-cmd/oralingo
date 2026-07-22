@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { and, desc, eq } from "drizzle-orm";
+import { ZodError } from "zod";
 import { db } from "@/lib/db";
 import { attempts, trainingSessions, userProfiles, userProgress } from "@/lib/db/schema";
 import { requireSession } from "@/lib/auth/session";
@@ -95,6 +96,11 @@ export async function POST(request: Request) {
     const previous = await db.select().from(attempts).where(and(eq(attempts.trainingSessionId, training.id), eq(attempts.isDeleted, false))).orderBy(desc(attempts.attemptNumber));
     return NextResponse.json({ ok: true, attempt: created, attempts: previous });
   } catch (error) {
-    return NextResponse.json({ ok: false, message: error instanceof Error ? error.message : "Falha ao analisar tentativa" }, { status: 400 });
+    const message = error instanceof ZodError
+      ? error.issues[0]?.message ?? "Dados invalidos para analisar tentativa"
+      : error instanceof Error
+        ? error.message
+        : "Falha ao analisar tentativa";
+    return NextResponse.json({ ok: false, message }, { status: 400 });
   }
 }

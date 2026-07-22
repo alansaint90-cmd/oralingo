@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getSession, hasRole } from "@/lib/auth/session";
 import { getAdminStats } from "@/lib/services/queries";
 import { AdminChallengeForm } from "@/components/features/AdminChallengeForm";
+import { BrandName } from "@/components/ui/BrandName";
 
 export default async function AdminPage() {
   const session = await getSession();
@@ -10,7 +11,7 @@ export default async function AdminPage() {
 
   return (
     <main className="shell app-frame stack-lg">
-      <div className="topbar"><div className="brand">Oralingo Admin</div></div>
+      <div className="topbar"><div className="brand"><BrandName suffix="Admin" /></div></div>
       <div className="metric-grid">
         <div className="card"><span>Usuarios</span><h2 className="big-number">{stats.users}</h2></div>
         <div className="card"><span>Treinos</span><h2 className="big-number">{stats.sessions}</h2></div>

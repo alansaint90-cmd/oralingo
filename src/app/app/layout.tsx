@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth/session";
 import { LogoutButton } from "@/components/features/LogoutButton";
+import { BrandName } from "@/components/ui/BrandName";
 import Link from "next/link";
 import { BarChart3, Flame, Home, Mic, Sparkles, Trophy } from "lucide-react";
 
@@ -11,7 +12,7 @@ export default async function PrivateLayout({ children }: { children: React.Reac
   return (
     <main className="app-shell app-frame">
       <nav className="app-topbar">
-        <Link href="/app/dashboard" className="brand">Oralingo</Link>
+        <Link href="/app/dashboard" className="brand"><BrandName /></Link>
         <div className="row">
           <span className="badge"><Flame size={15} /> 4 dias</span>
           <Link href="/app/treino" className="button ghost"><Mic size={18} /> Treino</Link>

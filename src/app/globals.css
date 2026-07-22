@@ -127,6 +127,19 @@ h1, h2, h3, .brand, .button, .side-link, .badge, .eyebrow {
   color: var(--brand-dark);
 }
 
+.brand-word {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.brand-word-primary { color: var(--brand-dark); }
+
+.brand-word-secondary { color: var(--blue); }
+
+.brand-suffix {
+  color: var(--navy);
+}
+
 .brand::before {
   content: "";
   width: 38px;

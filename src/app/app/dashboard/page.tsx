@@ -26,7 +26,7 @@ export default async function DashboardPage() {
       <div className="panel stack dashboard-hero-panel">
         <div className="spread">
           <div>
-            <span className="eyebrow"><Flame size={15} /> Sequencia: {progress?.streakDays ?? 0} dias</span>
+            <span className="eyebrow streak-pill"><Flame size={13} /> Sequencia: {progress?.streakDays ?? 0} dias</span>
             <h1 className="page-title compact">Ola, {user.name}. Sua missao esta pronta.</h1>
           </div>
           <Link className="button" href="/app/treino"><Zap size={18} /> Treinar agora</Link>

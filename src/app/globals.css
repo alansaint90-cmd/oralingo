@@ -193,6 +193,14 @@ h1, h2, h3, .brand, .button, .side-link, .badge, .eyebrow {
   text-transform: uppercase;
 }
 
+.streak-pill {
+  gap: 5px;
+  padding: 5px 9px;
+  font-size: 10px;
+  line-height: 1;
+  border-width: 1px;
+}
+
 .button {
   border: 0;
   border-radius: var(--radius);

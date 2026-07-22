@@ -20,12 +20,12 @@ export default async function PrivateLayout({ children }: { children: React.Reac
         </div>
       </nav>
       <div className="app-grid">
-        <aside className="side-nav">
+        <aside className="side-nav" aria-label="Navegacao lateral">
           <Link className="side-link" href="/app/dashboard"><Home size={20} /> Inicio</Link>
           <Link className="side-link" href="/app/treino"><Mic size={20} /> Treinar</Link>
           <Link className="side-link" href="/app/desafio-60"><Trophy size={20} /> Desafio</Link>
-          <Link className="side-link locked" href="/app/dashboard"><Sparkles size={20} /> Trilhas</Link>
-          <Link className="side-link locked" href="/app/dashboard"><BarChart3 size={20} /> Evolucao</Link>
+          <Link className="side-link locked" href="/app/dashboard" aria-label="Trilhas em breve"><Sparkles size={20} /> Trilhas</Link>
+          <Link className="side-link locked" href="/app/dashboard" aria-label="Evolucao em breve"><BarChart3 size={20} /> Evolucao</Link>
         </aside>
         <div>{children}</div>
       </div>

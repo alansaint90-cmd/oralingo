@@ -1,0 +1,12 @@
+.git
+.next
+.pnpm-store
+node_modules
+uploads/*
+!uploads/.gitkeep
+.env
+.env*.local
+README.md
+tsconfig.tsbuildinfo
+npm-debug.log*
+pnpm-debug.log*

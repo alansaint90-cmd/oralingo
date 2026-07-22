@@ -9,8 +9,11 @@ export const submitAttemptSchema = z.object({
   sessionId: z.string().uuid(),
   attemptNumber: z.number().int().min(1).max(10),
   durationSeconds: z.number().int().min(5).max(600),
-  transcript: z.string().trim().min(10).max(15000),
+  transcript: z.string().trim().max(15000).optional().default(""),
   audioDataUrl: z.string().startsWith("data:audio/").max(12_000_000).optional()
+}).refine((input) => input.transcript.length >= 10 || Boolean(input.audioDataUrl), {
+  message: "Envie um audio ou uma transcricao com pelo menos 10 caracteres",
+  path: ["audioDataUrl"]
 });
 
 export const challengeSchema = z.object({

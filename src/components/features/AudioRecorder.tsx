@@ -109,7 +109,6 @@ export function AudioRecorder({ sessionId, attemptNumber, maxSeconds, autoStop, 
 
   async function submit() {
     if (seconds < 5) return setError("A gravacao precisa ter pelo menos 5 segundos.");
-    if (!transcript.trim()) return setError("Nao conseguimos transcrever. Digite abaixo o que voce falou para enviar a analise.");
     setState("sending");
     const blob = chunksRef.current.length ? new Blob(chunksRef.current, { type: "audio/webm" }) : null;
     const audioDataUrl = blob ? await new Promise<string>((resolve) => {
@@ -142,7 +141,7 @@ export function AudioRecorder({ sessionId, attemptNumber, maxSeconds, autoStop, 
       <div className="xp-bar"><span style={{ width: `${Math.min(100, (seconds / maxSeconds) * 100)}%` }} /></div>
       <div className="pulse" aria-hidden="true" />
       {audioUrl && <audio controls src={audioUrl} />}
-      <textarea className="input" rows={5} value={transcript} onChange={(event) => setTranscript(event.target.value)} placeholder="A transcricao aparece aqui. Se o navegador nao transcrever automaticamente, digite sua fala para receber a analise." />
+      <textarea className="input" rows={5} value={transcript} onChange={(event) => setTranscript(event.target.value)} placeholder="A transcricao pode aparecer aqui. Se quiser, corrija ou digite sua fala antes de enviar." />
       <div className="row">
         {state === "ready" && <button className="button" onClick={start}><Mic size={18} /> Gravar</button>}
         {state === "recording" && <button className="button ghost" onClick={pause}><Pause size={18} /> Pausar</button>}

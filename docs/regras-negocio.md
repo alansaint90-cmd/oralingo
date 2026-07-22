@@ -12,8 +12,9 @@
 
 - Metricas objetivas: duracao, quantidade de palavras, palavras por minuto, repeticoes e ocorrencias de vicios de linguagem.
 - Avaliacoes interpretativas: clareza, objetividade, estrutura, persuasao e confianca percebida.
+- Quando houver audio gravado, a transcricao do backend tem prioridade sobre a transcricao do navegador.
 - Inferencias da IA devem ser apresentadas como orientacoes de treino, nao como verdade cientifica.
-- Se a IA externa falhar ou nao estiver configurada, a aplicacao usa uma avaliacao local validada para preservar a experiencia.
+- Se a IA externa falhar ou nao estiver configurada, a aplicacao usa a transcricao manual/do navegador e uma avaliacao local validada para preservar a experiencia.
 
 ## Privacidade
 

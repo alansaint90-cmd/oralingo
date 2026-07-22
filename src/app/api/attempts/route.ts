@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { attempts, trainingSessions, userProfiles, userProgress } from "@/lib/db/schema";
 import { requireSession } from "@/lib/auth/session";
 import { submitAttemptSchema } from "@/lib/validators/attempts";
-import { transcribeAudioFromBrowserTranscript } from "@/lib/ai/transcription";
+import { transcribeAttemptAudio } from "@/lib/ai/transcription";
 import { extractSpeechMetrics } from "@/lib/ai/metrics";
 import { analyzeSpeech } from "@/lib/ai/speech-analysis";
 import { storeAudioDataUrl } from "@/lib/services/audio-storage";
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     const session = await requireSession();
     const input = submitAttemptSchema.parse(await request.json());
     if (session.userId === demoUserId) {
-      const transcript = await transcribeAudioFromBrowserTranscript(input.transcript);
+      const transcript = await transcribeAttemptAudio({ audioDataUrl: input.audioDataUrl, browserTranscript: input.transcript });
       const metrics = extractSpeechMetrics(transcript, input.durationSeconds);
       const analysis = await analyzeSpeech("challenge_60", transcript, input.durationSeconds);
       const demoAttempt = {
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     )).limit(1);
     if (!training) throw new Error("Sessao nao encontrada");
 
-    const transcript = await transcribeAudioFromBrowserTranscript(input.transcript);
+    const transcript = await transcribeAttemptAudio({ audioDataUrl: input.audioDataUrl, browserTranscript: input.transcript });
     const metrics = extractSpeechMetrics(transcript, input.durationSeconds);
     const analysis = await analyzeSpeech(training.type, transcript, input.durationSeconds);
     const audioUrl = await storeAudioDataUrl(session.userId, input.audioDataUrl);

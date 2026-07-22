@@ -23,7 +23,7 @@ export default async function DashboardPage() {
 
   return (
     <section className="stack-lg">
-      <div className="panel stack">
+      <div className="panel stack dashboard-hero-panel">
         <div className="spread">
           <div>
             <span className="eyebrow"><Flame size={15} /> Sequencia: {progress?.streakDays ?? 0} dias</span>
@@ -35,7 +35,7 @@ export default async function DashboardPage() {
         <div className="level-progress" aria-label={`Progresso: ${currentScore} de 100 pontos. Proximo nivel: ${nextLevel}.`}>
           <div className="level-progress-track">
             <span style={{ width: `${currentScore}%` }} />
-            <div className="level-marker current" style={{ left: `${currentScore}%` }} title={`Nivel ${currentLevel}: ${currentScore}/100`}>
+            <div className="level-marker current" style={{ left: `clamp(19px, ${currentScore}%, calc(100% - 19px))` }} title={`Nivel ${currentLevel}: ${currentScore}/100`}>
               <Star size={16} />
             </div>
             <div className="level-marker next" title={`Proximo nivel ${nextLevel}`}>

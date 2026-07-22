@@ -88,10 +88,22 @@ async function seedInitialChallenges(client) {
           active,
           modified_by
         )
-        select $1, $2, $3, $4, $5, $6, $7, $8, true, null
+        select
+          $1::varchar(160),
+          $2::text,
+          $3::text,
+          $4::varchar(80),
+          $5::varchar(80),
+          $6::varchar(40),
+          $7::integer,
+          $8::integer,
+          true,
+          null::uuid
         where not exists (
           select 1 from challenges
-          where title = $1 and category = $4 and is_deleted = false
+          where title = $1::varchar(160)
+            and category = $4::varchar(80)
+            and is_deleted = false
         )
       `,
       challenge

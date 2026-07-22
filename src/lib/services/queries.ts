@@ -2,10 +2,12 @@ import { and, desc, eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { attempts, challenges, trainingSessions, userProfiles, userProgress, users } from "@/lib/db/schema";
 import { demoAnalysis, demoChallenge60, demoImprovedAnalysis, demoProfile, demoProgress, demoSessionId, demoUser, demoUserId } from "@/lib/demo/data";
+import { getSession } from "@/lib/auth/session";
 
 export async function getDashboardData(userId: string) {
   if (userId === demoUserId) {
-    return { user: demoUser, profile: demoProfile, progress: demoProgress };
+    const session = await getSession();
+    return { user: { ...demoUser, name: session?.name ?? demoUser.name }, profile: demoProfile, progress: demoProgress };
   }
 
   const [user] = await db.select().from(users).where(and(eq(users.id, userId), eq(users.isDeleted, false))).limit(1);

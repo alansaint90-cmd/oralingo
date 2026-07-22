@@ -108,6 +108,16 @@ h1, h2, h3, .brand, .button, .side-link, .badge, .eyebrow {
   padding: 18px 0;
 }
 
+.landing-topbar {
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 0.86fr);
+  align-items: center;
+}
+
+.landing-actions {
+  justify-content: center;
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -198,6 +208,16 @@ h1, h2, h3, .brand, .button, .side-link, .badge, .eyebrow {
 }
 .button:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 
+.topbar .button {
+  min-height: 42px;
+  padding: 10px 13px;
+  font-size: 12px;
+  box-shadow: 0 4px 0 var(--brand-dark);
+}
+
+.topbar .button.secondary { box-shadow: 0 4px 0 var(--blue-dark); }
+.topbar .button.ghost { box-shadow: 0 4px 0 #aebcf8; }
+
 .panel, .card, .lesson-card {
   background: var(--panel);
   border: 2px solid var(--line);
@@ -208,6 +228,28 @@ h1, h2, h3, .brand, .button, .side-link, .badge, .eyebrow {
 
 .panel { padding: 28px; }
 .card { padding: 20px; }
+
+.metric-card {
+  display: grid;
+  gap: 8px;
+}
+
+.metric-card span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.metric-card svg {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+}
+
+.metric-card p {
+  margin: 0;
+}
 
 .lesson-card {
   position: relative;
@@ -436,6 +478,10 @@ h1, h2, h3, .brand, .button, .side-link, .badge, .eyebrow {
 
 @media (max-width: 900px) {
   .hero, .grid-2, .grid-3, .metric-grid, .app-grid, .mission-path { grid-template-columns: 1fr; }
+  .landing-topbar {
+    display: flex;
+    align-items: center;
+  }
   .hero { gap: 24px; padding-top: 10px; }
   .hero-visual { min-height: 350px; }
   .phone-preview { display: none; }
@@ -444,4 +490,33 @@ h1, h2, h3, .brand, .button, .side-link, .badge, .eyebrow {
   .side-nav { display: none; }
   .bottom-nav { display: grid; }
   .app-topbar .row { display: none; }
+}
+
+@media (max-width: 520px) {
+  .shell { width: min(100% - 20px, 1120px); }
+  .topbar {
+    gap: 8px;
+    align-items: flex-start;
+    padding: 14px 0;
+  }
+  .topbar .brand {
+    font-size: 14px;
+    gap: 6px;
+    min-width: 0;
+  }
+  .topbar .brand::before {
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+    box-shadow: none;
+  }
+  .topbar .row {
+    justify-content: flex-end;
+    gap: 7px;
+  }
+  .topbar .button {
+    min-height: 36px;
+    padding: 8px 10px;
+    font-size: 11px;
+  }
 }

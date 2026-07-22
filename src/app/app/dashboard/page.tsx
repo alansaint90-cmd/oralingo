@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth/session";
 import { getDashboardData } from "@/lib/services/queries";
-import { BookOpen, Flame, Lock, Mic, ShieldCheck, Sparkles, Star, Trophy, Zap } from "lucide-react";
+import { BookOpen, Flame, Lock, Mic, ShieldCheck, Sparkles, Star, Trophy, UserRoundCheck, Zap } from "lucide-react";
 
 export default async function DashboardPage() {
   const session = await getSession();
@@ -28,15 +28,20 @@ export default async function DashboardPage() {
           <div>
             <span className="eyebrow"><Flame size={15} /> Sequencia: {progress?.streakDays ?? 0} dias</span>
             <h1 className="page-title compact">Ola, {user.name}. Sua missao esta pronta.</h1>
-            <p className="lead profile-level-name">{profile?.currentProfileName ?? "Comunicador em evolucao"}</p>
           </div>
           <Link className="button" href="/app/treino"><Zap size={18} /> Treinar agora</Link>
         </div>
         <div className="level-progress" aria-label={`Progresso: ${currentScore} de 100 pontos. Proximo nivel: ${nextLevel}.`}>
+          <div className="level-progress-heading">
+            <span>{profile?.currentProfileName ?? "Comunicador em evolucao"}</span>
+          </div>
           <div className="level-progress-track">
             <span style={{ width: `${currentScore}%` }} />
-            <div className="level-marker current" style={{ left: `clamp(19px, ${currentScore}%, calc(100% - 19px))` }} title={`Nivel ${currentLevel}: ${currentScore}/100`}>
-              <Star size={16} />
+            <div className="level-marker mission" title={`Nivel ${currentLevel}: missao em andamento`}>
+              <UserRoundCheck size={16} />
+            </div>
+            <div className="level-marker current" style={{ left: `clamp(19px, ${currentScore}%, calc(100% - 19px))` }} title={`Progresso atual: ${currentScore}/100`}>
+              <Zap size={16} />
             </div>
             <div className="level-marker next" title={`Proximo nivel ${nextLevel}`}>
               <Trophy size={16} />

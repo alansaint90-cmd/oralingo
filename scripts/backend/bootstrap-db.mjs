@@ -139,7 +139,7 @@ export async function bootstrapDatabase() {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   bootstrapDatabase().catch((error) => {
     console.error("[db] Falha no bootstrap:", error);
     process.exit(1);

@@ -17,6 +17,9 @@ export default async function DashboardPage() {
     ["Persuasao", progress?.persuasionScore ?? 0],
     ["Confianca percebida", progress?.perceivedConfidenceScore ?? 0]
   ];
+  const currentScore = Math.min(100, profile?.currentScore ?? 0);
+  const currentLevel = Math.max(1, Math.min(5, Math.floor(currentScore / 20) + 1));
+  const nextLevel = Math.min(5, currentLevel + 1);
 
   return (
     <section className="stack-lg">
@@ -25,11 +28,26 @@ export default async function DashboardPage() {
           <div>
             <span className="eyebrow"><Flame size={15} /> Sequencia: {progress?.streakDays ?? 0} dias</span>
             <h1 className="page-title compact">Ola, {user.name}. Sua missao esta pronta.</h1>
-            <p className="lead">{profile?.currentProfileName ?? "Comunicador em evolucao"}</p>
+            <p className="lead profile-level-name">{profile?.currentProfileName ?? "Comunicador em evolucao"}</p>
           </div>
           <Link className="button" href="/app/treino"><Zap size={18} /> Treinar agora</Link>
         </div>
-        <div className="xp-bar"><span style={{ width: `${Math.min(100, profile?.currentScore ?? 0)}%` }} /></div>
+        <div className="level-progress" aria-label={`Progresso: ${currentScore} de 100 pontos. Proximo nivel: ${nextLevel}.`}>
+          <div className="level-progress-track">
+            <span style={{ width: `${currentScore}%` }} />
+            <div className="level-marker current" style={{ left: `${currentScore}%` }} title={`Nivel ${currentLevel}: ${currentScore}/100`}>
+              <Star size={16} />
+            </div>
+            <div className="level-marker next" title={`Proximo nivel ${nextLevel}`}>
+              <Trophy size={16} />
+            </div>
+          </div>
+          <div className="level-progress-labels">
+            <strong>Nivel {currentLevel}</strong>
+            <span>{currentScore}/100 XP</span>
+            <strong>Proximo nivel {nextLevel}</strong>
+          </div>
+        </div>
       </div>
       <div className="metric-grid">
         <div className="card"><span className="muted">Nota atual</span><h2 className="big-number">{profile?.currentScore ?? 0}</h2></div>
